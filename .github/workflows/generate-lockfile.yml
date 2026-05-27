@@ -1,0 +1,34 @@
+name: Generate pnpm lockfile v8
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-lockfile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm 9
+        run: npm install -g pnpm@9
+
+      - name: Install dependencies (generate lockfile v8)
+        run: pnpm install
+
+      - name: Commit lockfile
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add pnpm-lock.yaml
+          git commit -m "chore: auto-generate pnpm-lock.yaml v8" || echo "No changes"
+          git push
