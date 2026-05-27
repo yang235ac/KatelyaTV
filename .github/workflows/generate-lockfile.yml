@@ -27,8 +27,8 @@ jobs:
 
       - name: Commit lockfile
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name "yang235ac"
+          git config user.email "yang235ac@gmail.com"
           git add pnpm-lock.yaml
           git commit -m "chore: auto-generate pnpm-lock.yaml v8" || echo "No changes"
           git push
